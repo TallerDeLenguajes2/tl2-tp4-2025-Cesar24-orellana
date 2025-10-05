@@ -49,4 +49,19 @@ public class CadeteriaController : ControllerBase
         accesoADatosJSONPedido.Guardar(pedidos, "data/pedido.json");
         return Ok(pedido);
     }
+
+    [HttpPost("AsignarPedido")]
+    public IActionResult AsignarPedido(int IdCadete, int numPedido)
+    {
+        var cadetes = accesoADatosJSONCadete.Cargar("data/cadetes.json");
+        var pedidos = accesoADatosJSONPedido.Cargar("data/pedido.json");
+
+        var pedido = pedidos.FirstOrDefault(p => p.NumPedido == numPedido);
+        if (pedido == null) return NotFound($"El pedido numero: {numPedido}\nNo fue encontrado");
+        var cadete = cadetes.FirstOrDefault(q => q.ID == IdCadete);
+        if (cadete == null) return NotFound($"El cadete: {IdCadete}\nNo fue encontrado");
+        pedido.CadeteAsignado = cadete;
+        accesoADatosJSONPedido.Guardar(pedidos, "data/pedido.json");
+        return Ok(pedido);
+    }
 }
