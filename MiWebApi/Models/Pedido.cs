@@ -28,9 +28,15 @@ public class Pedido
         return DatosCliente;
     }
 
-    public void CambiarEstado(EstadoPedido NuevoEstado)
+    public void CambiarEstado(int NuevoEstado)
     {
-        Estado = NuevoEstado;
+        var nuevoEstado = NuevoEstado switch  // No me gusta usar un switch pero solo sera por esta vez
+        {
+            0 => Pedido.EstadoPedido.Entregado,
+            1 => Pedido.EstadoPedido.Pendiente,
+            _ => Pedido.EstadoPedido.Cancelado
+        };
+        Estado = nuevoEstado;
     }
 
     public object MostrarPedido()

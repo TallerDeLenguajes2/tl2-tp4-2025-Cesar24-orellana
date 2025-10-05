@@ -49,14 +49,8 @@ public class Cadeteria
 
     public void CambiarEstado(int numPedido, int newState)
     {
-        var NuevoEstado = newState switch  // No me gusta usar un switch pero solo sera por esta vez
-        {
-            0 => Pedido.EstadoPedido.Entregado,
-            1 => Pedido.EstadoPedido.Pendiente,
-            _ => Pedido.EstadoPedido.Cancelado
-        };
         var pedido = ListadoPedidos.FirstOrDefault(p => p.NumPedido == numPedido);
-        if (pedido != null) pedido.CambiarEstado(NuevoEstado);
+        if (pedido != null) pedido.CambiarEstado(newState);
         //return "Pedido encontrado y actualizado";
     }
 

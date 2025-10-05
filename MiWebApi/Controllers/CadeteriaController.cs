@@ -64,4 +64,15 @@ public class CadeteriaController : ControllerBase
         accesoADatosJSONPedido.Guardar(pedidos, "data/pedido.json");
         return Ok(pedido);
     }
+
+    [HttpPost("CambiarEstado")]
+    public IActionResult CambiarEstado(int numPedido, int NuevoEstado)
+    {
+        var pedidos = accesoADatosJSONPedido.Cargar("data/pedido.json");
+        var pedido = pedidos.FirstOrDefault(p => p.NumPedido == numPedido);
+        if (pedido == null) return NotFound($"El pedido numero: {numPedido}\nNo fue encontrado");
+        pedido.CambiarEstado(NuevoEstado);
+        accesoADatosJSONPedido.Guardar(pedidos, "data/pedido.json");
+        return Ok(pedido);
+    }
 }
