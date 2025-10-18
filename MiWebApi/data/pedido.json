@@ -3,24 +3,46 @@
     "NumPedido": 1,
     "Obs": "Entrega urgente",
     "cliente": {
-      "Nombre": "Juan Pérez",
+      "Nombre": "Juan P\u00E9rez",
       "Direccion": "Calle Falsa 123",
       "Telefono": 123456,
-      "DatosRefereciaDireccion": "Casa roja con portón"
+      "DatosRefereciaDireccion": "Casa roja con port\u00F3n"
     },
     "Estado": 1,
-    "CadeteAsignado": null
+    "CadeteAsignado": {
+      "ID": 2,
+      "Nombre": "Jos\u00E9 Fern\u00E1ndez",
+      "Direccion": "Belgrano 200",
+      "Telefono": 222222
+    }
   },
   {
     "NumPedido": 2,
     "Obs": "Entrega normal",
     "cliente": {
-      "Nombre": "María López",
+      "Nombre": "Mar\u00EDa L\u00F3pez",
       "Direccion": "Av. Siempre Viva 742",
       "Telefono": 654321,
       "DatosRefereciaDireccion": "Edificio azul, depto 3B"
     },
     "Estado": 1,
     "CadeteAsignado": null
+  },
+  {
+    "NumPedido": 3,
+    "Obs": "Entrega Inmediata",
+    "cliente": {
+      "Nombre": "Juan Lopez",
+      "Direccion": "calle falsa 73",
+      "Telefono": 111333444,
+      "DatosRefereciaDireccion": "Casa Azul"
+    },
+    "Estado": 1,
+    "CadeteAsignado": {
+      "ID": 2,
+      "Nombre": "Jos\u00E9 Fern\u00E1ndez",
+      "Direccion": "Belgrano 200",
+      "Telefono": 222222
+    }
   }
 ]

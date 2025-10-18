@@ -42,7 +42,7 @@ public class CadeteriaController : ControllerBase
     }
 
     [HttpPost("AgregarPedido")]
-    public IActionResult AgregarPedido(Pedido pedido)
+    public IActionResult AgregarPedido([FromBody] Pedido pedido)
     {
         var pedidos = accesoADatosJSONPedido.Cargar("data/pedido.json");
         pedidos.Add(pedido);
