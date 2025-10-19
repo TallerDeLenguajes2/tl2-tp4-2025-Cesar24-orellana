@@ -8,6 +8,7 @@ public class Cadeteria
     public List<Cadete> ListadoCadetes { get; private set; }
     public List<Pedido> ListadoPedidos { get; private set; }
 
+    public Cadeteria(){/* Constructor vacio */}
     public Cadeteria(string? nombre, double telefono, List<Cadete> listadoCadetes, List<Pedido> listadoPedidos)
     {
         this.Nombre = nombre;

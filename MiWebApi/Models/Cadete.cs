@@ -7,6 +7,7 @@ public class Cadete
     public string? Direccion { get; private set; }
     public double Telefono { get; private set; }
 
+    public Cadete(){ /* Constructor vacio */}
     public Cadete(int iD, string? nombre, string? direccion, double telefono)
     {
         this.ID = iD;
