@@ -4,16 +4,15 @@ public class AccesoADatosCadetes
 {
     private readonly string _path;
 
-    public AccesoADatosCadetes(){
+    public AccesoADatosCadetes()
+    {
         _path = "cadetes.json";
     }
 
-    public Cadete Obtener(){
-        if (File.Exists(_path))
-        {
-            var NuevoCadete = JsonSerializer.Deserialize<Cadete>(File.ReadAllText(_path));
-            return NuevoCadete;
-        }
-        return new Cadete();
+    public List<Cadete> Obtener()
+    {
+        if (File.Exists(_path)) return new List<Cadete>();
+        var ListaDeCadetes = JsonSerializer.Deserialize<List<Cadete>>(File.ReadAllText(_path)) ?? new List<Cadete>();
+        return ListaDeCadetes;
     }
 }

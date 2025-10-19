@@ -10,11 +10,8 @@ public class AccesoADatosCadeteria
 
     public Cadeteria Obtener()
     {
-        if (File.Exists(_path))
-        {
-            var NuevaCadeteria = JsonSerializer.Deserialize<Cadeteria>(File.ReadAllText(_path));
-            return NuevaCadeteria;
-        }
-        return new Cadeteria();
+        if (File.Exists(_path)) return new Cadeteria();
+        var NuevaCadeteria = JsonSerializer.Deserialize<Cadeteria>(File.ReadAllText(_path)) ?? new Cadeteria();
+        return NuevaCadeteria;
     }
 }
