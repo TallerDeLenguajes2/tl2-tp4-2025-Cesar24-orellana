@@ -90,6 +90,15 @@ public class Cadeteria
     public int ultimoNumeroPedido()
     {
         if (ListadoPedidos.Count == 0) return 0;
-        return ListadoPedidos.Max( p => p.NumPedido) + 1;
+        return ListadoPedidos.Max(p => p.NumPedido) + 1;
+    }
+
+    public void AgregarListaCadetes(List<Cadete> listCadetes)
+    {
+        this.ListadoCadetes = listCadetes;
+    }
+    public void AgregarListaPedidos(List<Pedido> listPedidos)
+    {
+        this.ListadoPedidos = listPedidos;
     }
 }

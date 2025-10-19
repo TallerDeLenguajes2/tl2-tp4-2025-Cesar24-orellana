@@ -6,31 +6,45 @@ using Microsoft.AspNetCore.Mvc;
 
 public class CadeteriaController : ControllerBase
 {
-    private readonly AccesoADatosJSON<Cadete> accesoADatosJSONCadete;
-    private readonly AccesoADatosJSON<Pedido> accesoADatosJSONPedido;
+    private Cadeteria cadeteria; //Cadeteria ya no es clase estática
+    private AccesoADatosCadeteria ADCadeteria;
+    private AccesoADatosCadetes ADCadetes;
+    private AccesoADatosPedidos ADPedidos;
+
     public CadeteriaController()
     {
-        accesoADatosJSONCadete = new AccesoADatosJSON<Cadete>();
-        accesoADatosJSONPedido = new AccesoADatosJSON<Pedido>();
+        ADCadeteria = new AccesoADatosCadeteria();
+        ADCadetes = new AccesoADatosCadetes();
+        ADPedidos = new AccesoADatosPedidos();
+
+        cadeteria = ADCadeteria.Obtener();
+        cadeteria.AgregarListaCadetes(ADCadetes.Obtener());
+        cadeteria.AgregarListaPedidos(ADPedidos.Obtener());
     }
 
-    [HttpGet("GetPedidos")]
-    public List<Pedido> GetPedidos()
+    [HttpGet("GetCadeteria")] // Funcionando
+    public ActionResult<Cadeteria> GetCadeteria()  
     {
-        return accesoADatosJSONPedido.Cargar("data/pedido.json");
+        return Ok(ADCadeteria);
     }
 
-    [HttpGet("GetCadetes")]
-    public List<Cadete> GetCadetes()
+    [HttpGet("GetPedidos")]  // Funcionando
+    public ActionResult<List<Pedido>> GetPedidos()
     {
-        return accesoADatosJSONCadete.Cargar("data/cadetes.json");
+        return cadeteria.ListadoPedidos.Count() == 0 ? BadRequest("Lista de Pedidos Vacia") : Ok(cadeteria.ListadoPedidos);
     }
 
-    [HttpGet("GetInforme")]
+    [HttpGet("GetCadetes")]  // Funcionando
+    public ActionResult<List<Cadeteria>> GetCadetes()
+    {
+        return cadeteria.ListadoCadetes.Count() == 0 ? BadRequest("Lista de Cadetes Vacia") : Ok(ADCadetes);
+    }
+
+    [HttpGet("GetInforme")] // Funcionando
     public IActionResult GetInforme()
     {
-        var cadete = accesoADatosJSONCadete.Cargar("data/cadetes.json");
-        var pedidos = accesoADatosJSONPedido.Cargar("data/pedido.json");
+        var cadete = cadeteria.ListadoCadetes;
+        var pedidos = cadeteria.ListadoPedidos;
 
         var informe = new
         {
@@ -41,53 +55,53 @@ public class CadeteriaController : ControllerBase
         return Ok(informe);
     }
 
-    [HttpPost("AgregarPedido")]
-    public IActionResult AgregarPedido( Pedido pedido)
+    [HttpPost("PostAgregarPedido")]  // Funcionando
+    public ActionResult<Pedido> AgregarPedido([FromBody] Pedido pedido)
     {
-        var pedidos = accesoADatosJSONPedido.Cargar("data/pedido.json");
+        var pedidos = cadeteria.ListadoPedidos;
         pedidos.Add(pedido);
-        accesoADatosJSONPedido.Guardar(pedidos, "data/pedido.json");
+        ADPedidos.Guardar(cadeteria.ListadoPedidos);
         return Ok(pedido);
     }
 
-    [HttpPost("AsignarPedido")]
-    public IActionResult AsignarPedido(int IdCadete, int numPedido)
+    [HttpPost("PostAsignarPedido")] // Funcionando
+    public ActionResult<Pedido> AsignarPedido(int IdCadete, int numPedido)
     {
-        var cadetes = accesoADatosJSONCadete.Cargar("data/cadetes.json");
-        var pedidos = accesoADatosJSONPedido.Cargar("data/pedido.json");
+        var cadetes = cadeteria.ListadoCadetes;
+        var pedidos = cadeteria.ListadoPedidos;
 
         var pedido = pedidos.FirstOrDefault(p => p.NumPedido == numPedido);
         if (pedido == null) return NotFound($"El pedido numero: {numPedido}\nNo fue encontrado");
         var cadete = cadetes.FirstOrDefault(q => q.ID == IdCadete);
         if (cadete == null) return NotFound($"El cadete: {IdCadete}\nNo fue encontrado");
         pedido.CadeteAsignado = cadete;
-        accesoADatosJSONPedido.Guardar(pedidos, "data/pedido.json");
+        ADPedidos.Guardar(cadeteria.ListadoPedidos);
         return Ok(pedido);
     }
 
-    [HttpPost("CambiarEstado")]
-    public IActionResult CambiarEstado(int numPedido, int NuevoEstado)
+    [HttpPost("PostCambiarEstado")] // Funcionando
+    public ActionResult<Pedido> CambiarEstado(int numPedido, int NuevoEstado)
     {
-        var pedidos = accesoADatosJSONPedido.Cargar("data/pedido.json");
+        var pedidos = cadeteria.ListadoPedidos;
         var pedido = pedidos.FirstOrDefault(p => p.NumPedido == numPedido);
         if (pedido == null) return NotFound($"El pedido numero: {numPedido}\nNo fue encontrado");
         pedido.CambiarEstado(NuevoEstado);
-        accesoADatosJSONPedido.Guardar(pedidos, "data/pedido.json");
+        ADPedidos.Guardar(cadeteria.ListadoPedidos);
         return Ok(pedido);
     }
 
-    [HttpPost("CambiarCadetePedido")]
+    [HttpPost("PostCambiarCadetePedido")] // Funcionando
     public IActionResult CambiarCadetePedido(int IdCadete, int numPedido)
     {
-        var cadetes = accesoADatosJSONCadete.Cargar("data/cadetes.json");
-        var pedidos = accesoADatosJSONPedido.Cargar("data/pedido.json");
+        var cadetes = cadeteria.ListadoCadetes;
+        var pedidos = cadeteria.ListadoPedidos;
 
         var pedido = pedidos.FirstOrDefault(p => p.NumPedido == numPedido);
         if (pedido == null) return NotFound($"El pedido numero: {numPedido}\nNo fue encontrado");
         var cadete = cadetes.FirstOrDefault(q => q.ID == IdCadete);
         if (cadete == null) return NotFound($"El cadete: {IdCadete}\nNo fue encontrado");
         pedido.CadeteAsignado = cadete;
-        accesoADatosJSONPedido.Guardar(pedidos, "data/pedido.json");
+        ADPedidos.Guardar(cadeteria.ListadoPedidos);
         return Ok(pedido);
     }
 }
