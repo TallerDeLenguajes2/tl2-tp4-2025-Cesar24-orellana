@@ -9,12 +9,12 @@ public class Cadeteria
     public List<Pedido> ListadoPedidos { get; private set; }
 
     public Cadeteria(){/* Constructor vacio */}
-    public Cadeteria(string? nombre, double telefono, List<Cadete> listadoCadetes, List<Pedido> listadoPedidos)
+    public Cadeteria(string? nombre, double telefono/* , List<Cadete> listadoCadetes, List<Pedido> listadoPedidos */)
     {
         this.Nombre = nombre;
         this.Telefono = telefono;
-        this.ListadoCadetes = listadoCadetes;
-        this.ListadoPedidos = listadoPedidos;
+        /* this.ListadoCadetes = listadoCadetes;
+        this.ListadoPedidos = listadoPedidos; */
     }
 
     public string AsignarPedido(int idCadete, int numPedido)

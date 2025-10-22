@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 [ApiController]
 [Route("[controller]")]
 
-public class CadeteriaController : ControllerBase
+public class CadeteriaController : ControllerBase  // Falta el Comentario XML para el tipo
 {
     private Cadeteria cadeteria; //Cadeteria ya no es clase estática
     private AccesoADatosCadeteria ADCadeteria;
@@ -17,15 +17,23 @@ public class CadeteriaController : ControllerBase
         ADCadetes = new AccesoADatosCadetes();
         ADPedidos = new AccesoADatosPedidos();
 
-        cadeteria = ADCadeteria.Obtener();
+        cadeteria = ADCadeteria.Obtener();                  // <- Ubicacion del error
         cadeteria.AgregarListaCadetes(ADCadetes.Obtener());
         cadeteria.AgregarListaPedidos(ADPedidos.Obtener());
     }
 
-    [HttpGet("GetCadeteria")] // Funcionando
-    public ActionResult<Cadeteria> GetCadeteria()  
+    /* [HttpPost("PostCadeteria")]   
+    public ActionResult<Cadeteria> PostCadeteria(string Nombre, double Telefono)
     {
-        return Ok(ADCadeteria);
+        var cadeteiraPrueba = new Cadeteria(Nombre,Telefono);
+        ADCadeteria.Guardar(cadeteiraPrueba);
+        return Ok(cadeteiraPrueba);
+    } */
+
+    [HttpGet("GetCadeteria")] 
+    public IActionResult GetCadeteria()  
+    {
+        return cadeteria == null ? BadRequest("No se encontraron Datos de la Cadeteria") : Ok(cadeteria);
     }
 
     [HttpGet("GetPedidos")]  // Funcionando

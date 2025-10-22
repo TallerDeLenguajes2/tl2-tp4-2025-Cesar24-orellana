@@ -11,7 +11,7 @@ public class AccesoADatosCadetes
 
     public List<Cadete> Obtener()
     {
-        if (File.Exists(_path)) return new List<Cadete>();
+        if (!File.Exists(_path)) return new List<Cadete>();
         var ListaDeCadetes = JsonSerializer.Deserialize<List<Cadete>>(File.ReadAllText(_path)) ?? new List<Cadete>();
         return ListaDeCadetes;
     }
