@@ -6,7 +6,7 @@ public class AccesoADatosCadetes
 
     public AccesoADatosCadetes()
     {
-        _path = "cadetes.json";
+        _path = "data/cadetes.json";
     }
 
     public List<Cadete> Obtener()

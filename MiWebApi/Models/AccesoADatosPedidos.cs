@@ -6,7 +6,7 @@ public class AccesoADatosPedidos
 
     public AccesoADatosPedidos()
     {
-        _path = "pedidos.json";
+        _path = "data/pedidos.json";
     }
 
     public List<Pedido> Obtener()

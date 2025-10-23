@@ -5,7 +5,7 @@ public class AccesoADatosCadeteria
     private readonly string _path;
     public AccesoADatosCadeteria()
     {
-        _path = "cadeteria.json";
+        _path = "data/cadeteria.json";
     }
 
     public Cadeteria Obtener()
@@ -17,8 +17,7 @@ public class AccesoADatosCadeteria
         // }
         //return new Cadeteria();
         if (!File.Exists(_path)) return new Cadeteria();
-        string stringCadeteria = File.ReadAllText(_path);
-        var NuevaCadeteria = JsonSerializer.Deserialize<Cadeteria>(stringCadeteria);  // <- Ubicacion del Error
+        var NuevaCadeteria = JsonSerializer.Deserialize<Cadeteria>(File.ReadAllText(_path)) ?? new Cadeteria();
         return NuevaCadeteria;
     }
 

@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 [ApiController]
 [Route("[controller]")]
 
-public class CadeteriaController : ControllerBase  // Falta el Comentario XML para el tipo
+public class CadeteriaController : ControllerBase 
 {
-    private Cadeteria cadeteria; //Cadeteria ya no es clase estática
+    private Cadeteria cadeteria; 
     private AccesoADatosCadeteria ADCadeteria;
     private AccesoADatosCadetes ADCadetes;
     private AccesoADatosPedidos ADPedidos;
@@ -17,7 +17,7 @@ public class CadeteriaController : ControllerBase  // Falta el Comentario XML pa
         ADCadetes = new AccesoADatosCadetes();
         ADPedidos = new AccesoADatosPedidos();
 
-        cadeteria = ADCadeteria.Obtener();                  // <- Ubicacion del error
+        cadeteria = ADCadeteria.Obtener();
         cadeteria.AgregarListaCadetes(ADCadetes.Obtener());
         cadeteria.AgregarListaPedidos(ADPedidos.Obtener());
     }
