@@ -2,10 +2,10 @@ using System.Globalization;
 
 public class Cadete
 {
-    public int ID { get; private set; }
-    public string? Nombre { get; private set; }
-    public string? Direccion { get; private set; }
-    public double Telefono { get; private set; }
+    public int ID { get; set; }
+    public string? Nombre { get; set; }
+    public string? Direccion { get; set; }
+    public double Telefono { get; set; }
 
     public Cadete(){ /* Constructor vacio */}
     public Cadete(int iD, string? nombre, string? direccion, double telefono)

@@ -3,10 +3,10 @@ using System.Globalization;
 
 public class Cadeteria
 {
-    public string? Nombre { get; private set; }
-    public double Telefono { get; private set; }
-    public List<Cadete> ListadoCadetes { get; private set; }
-    public List<Pedido> ListadoPedidos { get; private set; }
+    public string? Nombre { get; set; }
+    public double Telefono { get; set; }
+    public List<Cadete> ListadoCadetes { get; set; }
+    public List<Pedido> ListadoPedidos { get; set; }
 
     public Cadeteria(){/* Constructor vacio */}
     public Cadeteria(string? nombre, double telefono/* , List<Cadete> listadoCadetes, List<Pedido> listadoPedidos */)

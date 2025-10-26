@@ -1,4 +1,6 @@
 {
-    "Nombre" : "El Mocho",
-    "Telefono": 381333222
+    "Nombre":"El Mocho",
+    "Telefono":3813334444,
+    "ListadoCadetes":null,
+    "ListadoPedidos":null
 }
